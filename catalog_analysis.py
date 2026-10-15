@@ -159,3 +159,25 @@ def demo_stage_3():
     find_first_masterpiece(movies)
     find_first_masterpiece([])
     print(count_long_movies(movies))
+def normalize_title(title):
+    words = title.split()
+    normalized_words = []
+
+    for word in words:
+        normalized_word = word[0].upper() + word[1:]
+        normalized_words.append(normalized_word)
+
+    return " ".join(normalized_words)
+
+def make_slug(title):
+    normalized = normalize_title(title)
+    return normalized.lower().replace(" ", "-")
+
+def format_report_line(movie):
+    title = normalize_title(movie["title"])
+    year = movie["year"]
+    rating = movie["rating"]
+    duration = duration_in_hours(movie["duration_min"])
+    genres = ", ".join(sorted(movie["genres"]))
+
+    return f'"{title}" ({year}) — {rating}/10, {duration}, жанры: {genres}'
